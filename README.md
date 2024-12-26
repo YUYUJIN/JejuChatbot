@@ -12,7 +12,7 @@
 <img src=https://img.shields.io/badge/GeminiFlash-1.5.0-purple></img>
 
 ## How to use
- Recurrent, attention 기반 LRURec 모델과 LLM 모델(본 프로젝트에서는 GPU 자원 제한으로 Huggingface의 google/gemma-2b 모델 사용)을 사용하기 위해 pytorch등 기반 dependency를 설치한다.  
+ Langchain과 임베딩 모델을 사용하기 위해 pytorch등 기반 dependency를 설치한다.  
  환경에 맞게 설치하되, 본 프로젝트의 개발 환경인 Linux에 맞는 설치는 다음과 같다.
 ```
 pip3 install torch torchvision torchaudio
@@ -40,9 +40,8 @@ python app.py
 <img src=https://github.com/YUYUJIN/JejuChatbot/blob/main/image/structure.png></img>  
 프로젝트의 구조도는 위와 같다.  
   
- LlamaRec: Two-Stage Recommendation using Large Language Models for Ranking 논문에서 제공한 구조와 구현을 대부분 따르고, 이를 위해 설문 데이터를 논문에 사용된 데이터와 비슷한 구조를 가지게 변형하여 사용하였다.  
- 제시된 논문에서처럼 배포된 사전학습 4bit 양자화 LLM 모델을 LoRA 기반으로 파인튜닝 진행하여 사용하였다. 사용한 모델은 Gemma-2B 모델이고, 파인튜닝 시에는 AWS의 g5.xlarge 인스턴스 환경에서 확보한 데이터 기준 6시간 정도 소요되었다.  
- 학습에 사용한 Prompt는 PALR: Personalization Aware LLMs for Recommendation 논문에서 제안하는 Prompt 양식을 참고하여 작성하였다. 후술할 LLM(Gemma-2B) 내용 참조.  
+ 크게 벡터 DB 업로드 단계와 Gemmini-Flash API를 활용해 사용자의 질문을 분류, 데이터를 검색하여 답변을 생성하여 서빙하는 단계로 구성된다.
+ 상세 내용은 아래에 목차별로 서술.
 
 ## Crowling Data
  신한 카드 결제 데이터 상에 존재하는 가맹점들을 네이버 플레이스에서 크롤링하여 데이터 구축.  
